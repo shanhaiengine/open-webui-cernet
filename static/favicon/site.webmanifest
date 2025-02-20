@@ -1,6 +1,6 @@
 {
-  "name": "Open WebUI",
-  "short_name": "WebUI",
+  "name": "山海引擎",
+  "short_name": "ShanhaiEngine",
   "icons": [
     {
       "src": "/favicon/web-app-manifest-192x192.png",
