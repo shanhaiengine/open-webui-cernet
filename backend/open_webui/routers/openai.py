@@ -194,7 +194,7 @@ async def speech(request: Request, user=Depends(get_verified_user)):
                     **(
                         {
                             "HTTP-Referer": "https://openwebui.com/",
-                            "X-Title": "山海引擎",
+                            "X-Title": "教育智算网",
                         }
                         if "openrouter.ai" in url
                         else {}

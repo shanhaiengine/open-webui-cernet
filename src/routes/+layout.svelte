@@ -227,7 +227,7 @@
 				if (done) {
 					if ($isLastActiveTab) {
 						if ($settings?.notificationEnabled ?? false) {
-							new Notification(`${title} | 山海引擎`, {
+							new Notification(`${title} | 教育智算网`, {
 								body: content,
 								icon: `${WEBUI_BASE_URL}/static/favicon.png`
 							});
@@ -373,7 +373,7 @@
 			if (type === 'message') {
 				if ($isLastActiveTab) {
 					if ($settings?.notificationEnabled ?? false) {
-						new Notification(`${data?.user?.name} (#${event?.channel?.name}) | 山海引擎`, {
+						new Notification(`${data?.user?.name} (#${event?.channel?.name}) | 教育智算网`, {
 							body: data?.content,
 							icon: data?.user?.profile_image_url ?? `${WEBUI_BASE_URL}/static/favicon.png`
 						});
