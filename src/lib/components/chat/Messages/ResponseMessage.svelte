@@ -715,7 +715,7 @@
 								</div>
 							</div>
 						{:else}
-							<div class="w-full flex flex-col relative" id="response-content-container" style="background:#f9f9f9; border-radius: 10px; margin-top:10px; padding:10px 20px;">
+							<div class="w-full flex flex-col relative" id="response-content-container">
 								{#if message.content === '' && !message.error}
 									<Skeleton />
 								{:else if message.content && message.error !== true}
