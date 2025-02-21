@@ -333,40 +333,14 @@
 								<div class="flex items-center min-w-fit">
 									<div class="line-clamp-1">
 										<div class="flex items-center min-w-fit">
-											<Tooltip
-												content={$user?.role === 'admin' ? (item?.value ?? '') : ''}
-												placement="top-start"
-											>
 												<img
 													src={item.model?.info?.meta?.profile_image_url ?? '/static/favicon.png'}
 													alt="Model"
 													class="rounded-full size-5 flex items-center mr-2"
 												/>
 												{item.label}
-											</Tooltip>
 										</div>
 									</div>
-									{#if item.model.owned_by === 'ollama' && (item.model.ollama?.details?.parameter_size ?? '') !== ''}
-										<div class="flex ml-1 items-center translate-y-[0.5px]">
-											<Tooltip
-												content={`${
-													item.model.ollama?.details?.quantization_level
-														? item.model.ollama?.details?.quantization_level + ' '
-														: ''
-												}${
-													item.model.ollama?.size
-														? `(${(item.model.ollama?.size / 1024 ** 3).toFixed(1)}GB)`
-														: ''
-												}`}
-												className="self-end"
-											>
-												<span
-													class=" text-xs font-medium text-gray-600 dark:text-gray-400 line-clamp-1"
-													>{item.model.ollama?.details?.parameter_size ?? ''}</span
-												>
-											</Tooltip>
-										</div>
-									{/if}
 								</div>
 
 								<!-- {JSON.stringify(item.info)} -->
