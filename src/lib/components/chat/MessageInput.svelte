@@ -65,17 +65,17 @@
 	export let disabled = false;
 	export let showSetDefault = true;
 
-	const saveDefaultModel = async () => {
-		const hasEmptyModel = selectedModels2.filter((it) => it === '');
-		if (hasEmptyModel.length) {
-			toast.error($i18n.t('Choose a model before saving...'));
-			return;
-		}
-		settings.set({ ...$settings, models: selectedModels2 });
-		await updateUserSettings(localStorage.token, { ui: $settings });
+	// const saveDefaultModel = async () => {
+	// 	const hasEmptyModel = selectedModels2.filter((it) => it === '');
+	// 	if (hasEmptyModel.length) {
+	// 		toast.error($i18n.t('Choose a model before saving...'));
+	// 		return;
+	// 	}
+	// 	settings.set({ ...$settings, models: selectedModels2 });
+	// 	await updateUserSettings(localStorage.token, { ui: $settings });
 
-		toast.success($i18n.t('Default model updated'));
-	};
+	// 	toast.success($i18n.t('Default model updated'));
+	// };
 
 	$: if (selectedModels2.length > 0 && $models.length > 0) {
 		selectedModels2 = selectedModels2.map((model) =>
@@ -1160,7 +1160,7 @@
 										<div class="flex gap-0.5 items-center overflow-x-auto scrollbar-none flex-1">
 											{#if $_user}
 											<!-- todo -->
-												{#each selectedModels2 as selectedModel2, selectedModelIdx2}
+												<!-- {#each selectedModels2 as selectedModel2, selectedModelIdx2}
 													<div class="flex w-full max-w-fit">
 														<div class="overflow-hidden w-full">
 															<div class="mr-1 max-w-full">
@@ -1236,7 +1236,7 @@
 
 														
 													</div>
-												{/each}
+												{/each} -->
 											<!-- todo -->
 
 												{#if $config?.features?.enable_web_search && ($_user.role === 'admin' || $_user?.permissions?.features?.web_search)}
