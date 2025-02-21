@@ -99,11 +99,13 @@
 				</div>
 
 				<div class="flex self-center translate-y-[1px]">
-					{#if open}
+					<!-- todo -->
+					<ChevronUp strokeWidth="3.5" className="size-3.5" />
+					<!-- {#if open}
 						<ChevronUp strokeWidth="3.5" className="size-3.5" />
 					{:else}
 						<ChevronDown strokeWidth="3.5" className="size-3.5" />
-					{/if}
+					{/if} -->
 				</div>
 			</div>
 		</div>

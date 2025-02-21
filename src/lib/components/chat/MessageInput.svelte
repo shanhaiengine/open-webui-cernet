@@ -2,6 +2,8 @@
 	import { toast } from 'svelte-sonner';
 	import { v4 as uuidv4 } from 'uuid';
 	import { createPicker, getAuthToken } from '$lib/utils/google-drive-picker';
+	import Selector from './ModelSelector/Selector.svelte';
+	import { updateUserSettings } from '$lib/apis/users';
 
 	import { onMount, tick, getContext, createEventDispatcher, onDestroy } from 'svelte';
 	const dispatch = createEventDispatcher();
@@ -58,6 +60,28 @@
 
 	export let atSelectedModel: Model | undefined = undefined;
 	export let selectedModels: [''];
+	export let selectedModels2 = [''];
+
+	export let disabled = false;
+	export let showSetDefault = true;
+
+	const saveDefaultModel = async () => {
+		const hasEmptyModel = selectedModels2.filter((it) => it === '');
+		if (hasEmptyModel.length) {
+			toast.error($i18n.t('Choose a model before saving...'));
+			return;
+		}
+		settings.set({ ...$settings, models: selectedModels2 });
+		await updateUserSettings(localStorage.token, { ui: $settings });
+
+		toast.success($i18n.t('Default model updated'));
+	};
+
+	$: if (selectedModels2.length > 0 && $models.length > 0) {
+		selectedModels2 = selectedModels2.map((model) =>
+			$models.map((m) => m.id).includes(model) ? model : ''
+		);
+	}
 
 	let selectedModelIds = [];
 	$: selectedModelIds = atSelectedModel !== undefined ? [atSelectedModel.id] : selectedModels;
@@ -1135,6 +1159,86 @@
 
 										<div class="flex gap-0.5 items-center overflow-x-auto scrollbar-none flex-1">
 											{#if $_user}
+											<!-- todo -->
+												{#each selectedModels2 as selectedModel2, selectedModelIdx2}
+													<div class="flex w-full max-w-fit">
+														<div class="overflow-hidden w-full">
+															<div class="mr-1 max-w-full">
+																<Selector
+																	id={`${selectedModelIdx2}`}
+																	placeholder={$i18n.t('Select a model')}
+																	items={$models.map((model) => ({
+																		value: model.id,
+																		label: model.name,
+																		model: model
+																	}))}
+																	showTemporaryChatControl={$_user.role === 'user'
+																		? ($_user?.permissions?.chat?.temporary ?? true)
+																		: true}
+																	bind:value={selectedModel2}
+																/>
+															</div>
+														</div>
+
+														{#if selectedModelIdx2 === 0}
+															<div
+																class="  self-center mx-1 disabled:text-gray-600 disabled:hover:text-gray-600 -translate-y-[0.5px]"
+															>
+																<Tooltip content={$i18n.t('Add Model')}>
+																	<button
+																		class=" "
+																		{disabled}
+																		on:click={() => {
+																			selectedModels2 = [...selectedModels2, ''];
+																		}}
+																		aria-label="Add Model"
+																	>
+																		<svg
+																			xmlns="http://www.w3.org/2000/svg"
+																			fill="none"
+																			viewBox="0 0 24 24"
+																			stroke-width="2"
+																			stroke="currentColor"
+																			class="size-3.5"
+																		>
+																			<path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+																		</svg>
+																	</button>
+																</Tooltip>
+															</div>
+														{:else}
+															<div
+																class="  self-center mx-1 disabled:text-gray-600 disabled:hover:text-gray-600 -translate-y-[0.5px]"
+															>
+																<Tooltip content={$i18n.t('Remove Model')}>
+																	<button
+																		{disabled}
+																		on:click={() => {
+																			selectedModels2.splice(selectedModelIdx2, 1);
+																			selectedModels2 = selectedModels2;
+																		}}
+																		aria-label="Remove Model"
+																	>
+																		<svg
+																			xmlns="http://www.w3.org/2000/svg"
+																			fill="none"
+																			viewBox="0 0 24 24"
+																			stroke-width="2"
+																			stroke="currentColor"
+																			class="size-3"
+																		>
+																			<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
+																		</svg>
+																	</button>
+																</Tooltip>
+															</div>
+														{/if}
+
+														
+													</div>
+												{/each}
+											<!-- todo -->
+
 												{#if $config?.features?.enable_web_search && ($_user.role === 'admin' || $_user?.permissions?.features?.web_search)}
 													<Tooltip content={$i18n.t('Search the internet')} placement="top">
 														<button
