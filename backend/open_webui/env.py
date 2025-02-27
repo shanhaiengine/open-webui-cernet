@@ -108,8 +108,6 @@ log.setLevel(SRC_LOG_LEVELS["CONFIG"])
 
 
 WEBUI_NAME = os.environ.get("WEBUI_NAME", "教育智算网")
-if WEBUI_NAME != "教育智算网":
-    WEBUI_NAME += " (DeepSeek)"
 
 WEBUI_FAVICON_URL = "https://www.shanhaiengine.com/favicon.ico"
 
