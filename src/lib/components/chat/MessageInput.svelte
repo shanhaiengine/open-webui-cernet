@@ -45,6 +45,7 @@
 	import GlobeAlt from '../icons/GlobeAlt.svelte';
 	import PhotoSolid from '../icons/PhotoSolid.svelte';
 	import Photo from '../icons/Photo.svelte';
+	import DeepThinkingIcon from '../icons/DeepThinkingIcon.svelte';
 	import CommandLine from '../icons/CommandLine.svelte';
 	import { KokoroWorker } from '$lib/workers/KokoroWorker';
 
@@ -96,13 +97,15 @@
 	export let imageGenerationEnabled = false;
 	export let webSearchEnabled = false;
 	export let codeInterpreterEnabled = false;
+	export let deepThinkingEnabled = true;
 
 	$: onChange({
 		prompt,
 		files,
 		selectedToolIds,
 		imageGenerationEnabled,
-		webSearchEnabled
+		webSearchEnabled,
+		deepThinkingEnabled
 	});
 
 	let loaded = false;
@@ -418,7 +421,7 @@
 				</div>
 
 				<div class="w-full relative">
-					{#if atSelectedModel !== undefined || selectedToolIds.length > 0 || webSearchEnabled || ($settings?.webSearch ?? false) === 'always' || imageGenerationEnabled || codeInterpreterEnabled}
+					{#if atSelectedModel !== undefined || selectedToolIds.length > 0 || webSearchEnabled || ($settings?.webSearch ?? false) === 'always' || imageGenerationEnabled || codeInterpreterEnabled || deepThinkingEnabled}
 						<div
 							class="px-3 pb-0.5 pt-1.5 text-left w-full flex flex-col absolute bottom-0 left-0 right-0 bg-linear-to-t from-white dark:from-gray-900 z-10"
 						>
@@ -450,6 +453,22 @@
 												{/if}
 											{/each}
 										</div>
+									</div>
+								</div>
+							{/if}
+
+							{#if deepThinkingEnabled }
+								<div class="flex items-center justify-between w-full">
+									<div class="flex items-center gap-2.5 text-sm dark:text-gray-500">
+										<div class="pl-1">
+											<span class="relative flex size-2">
+												<span
+													class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"
+												/>
+												<span class="relative inline-flex rounded-full size-2 bg-yellow-500" />
+											</span>
+										</div>
+										<div class=" translate-y-[0.5px]">深度思考</div>
 									</div>
 								</div>
 							{/if}
@@ -1238,6 +1257,24 @@
 													</div>
 												{/each} -->
 											<!-- todo -->
+												<Tooltip content="深度思考" placement="top">
+													<button
+														on:click|preventDefault={() => (deepThinkingEnabled = !deepThinkingEnabled)}
+														type="button"
+														style="margin-right:8px;"
+														class="px-1.5 @sm:px-2.5 py-1.5 flex gap-1.5 items-center text-sm rounded-full font-medium transition-colors duration-300 focus:outline-hidden max-w-full overflow-hidden {
+														(deepThinkingEnabled)
+															? 'bg-blue-100 dark:bg-blue-500/20 text-blue-500 dark:text-blue-400'
+															: 'bg-transparent text-gray-600 dark:text-gray-300 border-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800'}"
+													>
+														<DeepThinkingIcon className="size-5" strokeWidth="1.75" />
+
+														<span
+															class="hidden @sm:block whitespace-nowrap overflow-hidden text-ellipsis translate-y-[0.5px] mr-0.5"
+															>深度思考</span
+														>
+													</button>
+												</Tooltip>
 
 												{#if $config?.features?.enable_web_search && ($_user.role === 'admin' || $_user?.permissions?.features?.web_search)}
 													<Tooltip content={$i18n.t('Search the internet')} placement="top">

@@ -53,6 +53,7 @@
 	let hapticFeedback = false;
 
 	let webSearch = null;
+	let deepThinkingBtn:boolean = true;
 
 	const toggleSplitLargeChunks = async () => {
 		splitLargeChunks = !splitLargeChunks;
@@ -205,6 +206,11 @@
 		saveSettings({ webSearch: webSearch });
 	};
 
+	const toggleDeepThinkingBtn = async () => {
+		deepThinkingBtn = !deepThinkingBtn;
+		saveSettings({ deepThinkingBtn: deepThinkingBtn });
+	};
+
 	onMount(async () => {
 		titleAutoGenerate = $settings?.title?.auto ?? true;
 		autoTags = $settings.autoTags ?? true;
@@ -243,6 +249,7 @@
 
 		backgroundImageUrl = $settings.backgroundImageUrl ?? null;
 		webSearch = $settings.webSearch ?? null;
+		deepThinkingBtn = $settings.deepThinkingBtn ?? true
 	});
 </script>
 
