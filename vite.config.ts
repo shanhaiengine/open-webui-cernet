@@ -2,7 +2,7 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
 import { viteStaticCopy } from 'vite-plugin-static-copy';
-import viteCompression from "vite-plugin-compression";
+import viteCompression from 'vite-plugin-compression';
 
 // /** @type {import('vite').Plugin} */
 // const viteServerConfig = {
@@ -30,13 +30,14 @@ export default defineConfig({
 			]
 		}),
 		viteCompression({
+			filter: /\.(js|css|txt|html|ico|svg)(\?.*)?$/i, // 需要压缩的文件
 			verbose: true, // 是否在控制台输出压缩结果
 			disable: false, // 默认 false, 设置为 true 来禁用压缩
-			threshold: 10240, // 只处理大于此大小的资源（单位：b）。默认值为 0。
+			threshold: 1024 * 5, // 只处理大于此大小的资源（单位：b）。默认值为 0。
 			algorithm: "gzip", // 使用 gzip 压缩
 			ext: ".gz", // 输出文件的扩展名
 			deleteOriginFile: true,
-		}),
+		})
 	],
 	define: {
 		APP_VERSION: JSON.stringify(process.env.npm_package_version),
