@@ -36,7 +36,7 @@ export default defineConfig({
 			threshold: 1024 * 5, // 只处理大于此大小的资源（单位：b）。默认值为 0。
 			algorithm: "gzip", // 使用 gzip 压缩
 			ext: ".gz", // 输出文件的扩展名
-			deleteOriginFile: true,
+			deleteOriginFile: false,
 		})
 	],
 	define: {
