@@ -390,6 +390,7 @@ app = FastAPI(
     openapi_url="/openapi.json" if ENV == "dev" else None,
     redoc_url=None,
     lifespan=lifespan,
+    root_path="/demo"
 )
 
 oauth_manager = OAuthManager(app)

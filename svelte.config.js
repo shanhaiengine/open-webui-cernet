@@ -14,7 +14,10 @@ const config = {
 			pages: 'build',
 			assets: 'build',
 			fallback: 'index.html'
-		})
+		}),
+		paths: {
+			base: '/demo', // 设置子路径
+		}
 	},
 	vitePlugin: {
 		// inspector: {
