@@ -24,11 +24,12 @@
 	}
 
 	// Helper function to check if text is a URL and return the domain
-	function formattedTitle(title: string): string {
+	function formattedTitle(title: string | undefined): string {
+		if(title === undefined) return ''
+
 		if (title.startsWith('http')) {
 			return getDomain(title);
 		}
-
 		return title;
 	}
 
