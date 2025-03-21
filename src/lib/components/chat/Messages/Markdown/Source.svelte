@@ -14,6 +14,8 @@
 			attrs[match[1]] = match[2];
 		}
 
+		// [fix] 避免title为undefined时的后续md报错
+		if(attrs.title === undefined) attrs.title = ""
 		return attrs;
 	}
 
