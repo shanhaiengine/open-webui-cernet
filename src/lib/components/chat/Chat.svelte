@@ -1086,7 +1086,8 @@
 				message.content += choices[0]?.message?.content;
 			} else {
 				// Stream response
-				let value = choices[0]?.delta?.content ?? '';
+				// let value = choices[0]?.delta?.content ?? '';
+				let value = (choices[0]?.delta?.reasoning_content || choices[0]?.delta?.content) ?? '';
 				if (message.content == '' && value == '\n') {
 					console.log('Empty response');
 				} else {
